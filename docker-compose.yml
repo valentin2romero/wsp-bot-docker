@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  wsp-bot-node:
+    build:
+      context: ./wsp-bot-node
+      dockerfile: Dockerfile
+      args:
+        # Allows overriding NODE_ENV at build time
+        NODE_ENV: ${NODE_ENV:-production}
+    container_name: wsp-bot-node
+    restart: unless-stopped
+    ports:
+      - "3008:3008"
+    environment:
+      - NODE_ENV=${NODE_ENV:-production}
+      - PORT=3008
+    volumes:
+      - ./wsp-bot-node:/usr/src/app
+      # Mount local code for development
+      - ./app:/usr/src/app:delegated
+      # Persist node_modules to avoid re-installing on every start
+      - /usr/src/app/node_modules
+    # To override the start command, uncomment one of these:
+    # command: npm run dev    # for development (requires a "dev" script in package.json)
+    # command: npm run start  # for production (default, can be omitted)
