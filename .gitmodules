@@ -1,0 +1,3 @@
+[submodule "wsp-bot-node"]
+	path = wsp-bot-node
+	url = https://github.com/valentin2romero/wsp-bot-node.git
